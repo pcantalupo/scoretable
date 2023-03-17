@@ -35,7 +35,7 @@ add_labels_based_on_max = function(scores, unknown = FALSE, clusters, cutoff = 0
     maxindex = whichmax[i]
     scores[i,maxindex]
   })
-  data = data.frame(clusters = rownames(scores), labels = labels, score = score, scores)
+  data = data.frame(clusters = rownames(scores), labels = labels, score = score, scores, check.names = FALSE)
   if(unknown) {
     #numcells = table(clusters)
     data$labels[data$score < cutoff] = "Unknown"
