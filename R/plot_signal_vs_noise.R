@@ -11,15 +11,15 @@
 plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
                                  jitter = FALSE) {
   
-  stopifnot(is.data.frame(scores.labels))
+  stopifnot(is.data.frame(scores))
   required_cols <- c("clusters", "labels", "score")
-  stopifnot(all(required_cols %in% colnames(scores.labels)))
+  stopifnot(all(required_cols %in% colnames(scores)))
   
   # Identify score columns (all columns not in metadata)
-  score_cols <- setdiff(colnames(scores.labels), required_cols)
+  score_cols <- setdiff(colnames(scores), required_cols)
   
   # Pivot long
-  long <- scores.labels %>%
+  long <- scores %>%
     select(labels, all_of(score_cols)) %>%
     pivot_longer(cols = score_cols, names_to = "all_labels", values_to = "score")
   
