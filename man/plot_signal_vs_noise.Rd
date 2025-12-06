@@ -6,9 +6,27 @@
 \usage{
 plot_signal_vs_noise(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
 }
+\arguments{
+\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
+
+\item{jitter}{Logical value indicating whether to add geom_jitter to the plot}
+
+\item{outlier.shape}{Integer value indicating the shape of the outlier points}
+
+\item{alpha_val}{Numeric value indicating the alpha value for the points in the plot}
+}
 \value{
 ggplot object
 }
 \description{
 Shows the distribution of scores across all candidate labels for each predicted label.
+}
+\examples{
+set.seed(15)
+m = matrix(rnorm(60), nrow = 20)
+colnames(m) = c("TCell","BCell","Macro")
+rownames(m) = paste0("c", rep(1:nrow(m)))
+pred = add_labels_based_on_max(m)
+plot_scores_by_pred(pred, jitter = TRUE)
+
 }

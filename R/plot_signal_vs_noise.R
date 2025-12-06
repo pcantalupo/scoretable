@@ -1,6 +1,11 @@
 #' Signal vs Noise Boxplot
 #'
 #' Shows the distribution of scores across all candidate labels for each predicted label.
+#' 
+#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)
+#' @param outlier.shape Integer value indicating the shape of the outlier points
+#' @param alpha_val Numeric value indicating the alpha value for the points in the plot
+#' @param jitter Logical value indicating whether to add geom_jitter to the plot 
 #'
 #' @return ggplot object
 #'
@@ -8,6 +13,15 @@
 #' @import ggplot2
 #' @import tidyr
 #' @import dplyr
+#' 
+#' @examples
+#' set.seed(15)
+#' m = matrix(rnorm(60), nrow = 20)
+#' colnames(m) = c("TCell","BCell","Macro")
+#' rownames(m) = paste0("c", rep(1:nrow(m)))
+#' pred = add_labels_based_on_max(m)
+#' plot_scores_by_pred(pred, jitter = TRUE)
+#' 
 plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
                                  jitter = FALSE) {
   

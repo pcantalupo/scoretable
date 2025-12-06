@@ -29,9 +29,11 @@ colnames(scores) = c("TCell","BCell","Macro")  # add colnames
 scores = m
 colnames(scores); rownames(scores)
 scores
+class(scores)
 
 # Annotate
 (pred = add_labels_based_on_max(scores)) # error because both row and col names are missing
+class(pred)  # data.frame
 
 colnames(scores) = c("TCell","BCell","Macro")  # add colname but still error b/c rownames missing
 (pred = add_labels_based_on_max(scores))
@@ -42,7 +44,7 @@ rownames(scores) = paste0("c", rep(1:nrow(scores))) # add row names
 
 # Annotate - Unknown test
 (pred = add_labels_based_on_max(scores, unknown = TRUE)) # default cutoff 0.25
-(pred = add_labels_based_on_max(scores, unknown = TRUE, cutoff = 0.45))
+(pred = add_labels_based_on_max(scores, unknown = TRUE, cutoff = 0.5))
 
 
 ### Plotting
@@ -50,10 +52,12 @@ rownames(scores) = paste0("c", rep(1:nrow(scores))) # add row names
 table(pred$labels)
 
 # Plot scores by Pred
-plot_scores_by_pred(pred, jitter = TRUE)
+p = plot_scores_by_pred(pred, jitter = TRUE)
+class(p)
 
 # Plot signal vs noise
-plot_signal_vs_noise(pred)
+p2 = plot_signal_vs_noise(pred)
+class(p2)
 plot_signal_vs_noise(pred, jitter = TRUE)
 
 
