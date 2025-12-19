@@ -1,5 +1,3 @@
-pacman::p_load(tidyverse)
-
 
 ##########################################
 # Observation level ------------------------#
@@ -42,22 +40,25 @@ rownames(scores) = paste0("c", rep(1:nrow(scores))) # add row names
 (pred = add_labels_based_on_max(scores))  # success
 
 
-# Annotate - Unknown test
+# Annotate - test that Unknown works
 (pred = add_labels_based_on_max(scores, unknown = TRUE)) # default cutoff 0.25
+# check that cutoff works
 (pred = add_labels_based_on_max(scores, unknown = TRUE, cutoff = 0.5))
 
 
 ### Plotting
+# annotate score table
 (pred = add_labels_based_on_max(scores))
 table(pred$labels)
 
 # Plot scores by Pred
 p = plot_scores_by_pred(pred, jitter = TRUE)
-class(p)
+stopifnot("ggplot" %in% class(p))
 
 # Plot signal vs noise
 p2 = plot_signal_vs_noise(pred)
-class(p2)
+stopifnot("ggplot" %in% class(p2))
+
 plot_signal_vs_noise(pred, jitter = TRUE)
 
 
@@ -91,9 +92,35 @@ expand_clusterlabel(pred, clusters)
 
 
 
+#######################################
+# esmax data (sampled 1000 rows)
+
+scores = readRDS("inst/extdata/esmax_scores_small.rds")  
+dim(scores)  # cells rows X celltypes columns
+head(rownames(scores))
+colnames(scores)
+min(scores); max(scores)
+
+## Single cell level
+pred = add_labels_based_on_max(scores)
+head(pred,2)
+table(pred$labels)
+
+p1 = plot_scores_by_pred(pred)
+p1
+p2 = plot_signal_vs_noise(pred)
+p2
+# Document this ability to set rows rather than adding another parameter to the function
+p2 + 
+  facet_wrap(~ labels, scales = "free_y", nrow = 3)
 
 
-
+pred_wunknown = add_labels_based_on_max(scores, unknown = TRUE)
+table(pred_wunknown$labels)
+p1 = plot_scores_by_pred(pred_wunknown)
+p1
+p2 = plot_signal_vs_noise(pred_wunknown)
+p2
 
 
 
