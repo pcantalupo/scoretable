@@ -1,66 +1,22 @@
-pacman::p_load(tidyverse)
 
 
-##########################################
-# Observation level ------------------------#
-# Create a matrix of scores 'm' (no row nor colnames) - 20 rows, 3 columns
-set.seed(15)
-m = matrix(rnorm(60), nrow = 20)
-m
-
-### Data Frame
-scores = as.data.frame(m)
-colnames(scores)  # default V1, etc... colnames are added by default
-rownames(scores)  # default 1, 2, etec... rownamew are added by default
-
-colnames(scores) = NULL
-rownames(scores) = NULL   # rownames are never eliminated with a dataframe
-scores
-
-# Annotate (adds clusters, labels, score)
-(pred = add_labels_based_on_max(scores))  # should give error due to colnames missing
-
-colnames(scores) = c("TCell","BCell","Macro")  # add colnames
-(pred = add_labels_based_on_max(scores))     # success
-
-
-
-### Matrix
-scores = m
-colnames(scores); rownames(scores)
-scores
-class(scores)
-
-# Annotate
-(pred = add_labels_based_on_max(scores)) # error because both row and col names are missing
-class(pred)  # data.frame
-
-colnames(scores) = c("TCell","BCell","Macro")  # add colname but still error b/c rownames missing
-(pred = add_labels_based_on_max(scores))
-
-rownames(scores) = paste0("c", rep(1:nrow(scores))) # add row names 
-(pred = add_labels_based_on_max(scores))  # success
-
-
-# Annotate - Unknown test
-(pred = add_labels_based_on_max(scores, unknown = TRUE)) # default cutoff 0.25
-(pred = add_labels_based_on_max(scores, unknown = TRUE, cutoff = 0.5))
 
 
 ### Plotting
-(pred = add_labels_based_on_max(scores))
+# annotate score table
+pred = add_labels_based_on_max(scores)
+head(pred)
 table(pred$labels)
 
 # Plot scores by Pred
 p = plot_scores_by_pred(pred, jitter = TRUE)
-class(p)
+stopifnot("ggplot" %in% class(p))
 
 # Plot signal vs noise
 p2 = plot_signal_vs_noise(pred)
-class(p2)
+stopifnot("ggplot" %in% class(p2))
+
 plot_signal_vs_noise(pred, jitter = TRUE)
-
-
 
 
 
@@ -91,10 +47,67 @@ expand_clusterlabel(pred, clusters)
 
 
 
+#######################################
+# ESMAX data (sampled 1000 rows)
+scores = esmax_scores_small
+dim(scores)  # cells rows X celltypes columns
+head(rownames(scores))
+colnames(scores)
+min(scores); max(scores)
+
+## Single cell level
+pred = add_labels_based_on_max(scores)
+head(pred,2)
+table(pred$labels)
+
+p1 = plot_scores_by_pred(pred)
+p1
+p2 = plot_signal_vs_noise(pred)
+p2
+# Document this ability to set rows rather than adding another parameter to the function
+p2 + 
+  facet_wrap(~ labels, scales = "free_y", nrow = 3)
+
+pred_wunknown = add_labels_based_on_max(scores, unknown = TRUE)
+table(pred_wunknown$labels)
+p1 = plot_scores_by_pred(pred_wunknown)
+p1
+p2 = plot_signal_vs_noise(pred_wunknown)
+p2
 
 
 
+# Clusters level ------------------------#
+# define random clusters for each row of scores
+set.seed(1)
+clusters = sample(0:9, 1000, replace=TRUE)
+table(clusters)
 
+# aggregate scores to cluster level
+scores.cluster = scores_clusterlevel(scores, clusters = clusters)
+scores.cluster
+
+(pred = add_labels_based_on_max(scores.cluster))
+table(pred$labels)
+
+p1 = plot_scores_by_pred(pred)
+p1
+p2 = plot_signal_vs_noise(pred, jitter = TRUE)
+p2
+# Document this ability to set rows rather than adding another parameter to the function
+p2 + 
+  facet_wrap(~ labels, scales = "free_y", nrow = 3)
+
+pred_wunknown = add_labels_based_on_max(scores.cluster, unknown = TRUE, cutoff = 0.1)
+table(pred_wunknown$labels)
+p1 = plot_scores_by_pred(pred_wunknown)
+p1
+p2 = plot_signal_vs_noise(pred_wunknown)
+p2
+
+
+# Expand cluster labels to observation level
+expand_clusterlabel(pred, clusters)
 
 
 
