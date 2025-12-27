@@ -14,11 +14,11 @@ plot_scores_by_pred(
 \arguments{
 \item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
 
+\item{outlier_shape}{Integer value indicating the shape of the outlier points}
+
 \item{alpha_val}{Numeric value indicating the alpha value for the points in the plot}
 
 \item{jitter}{Logical value indicating whether to add geom_jitter to the plot}
-
-\item{outlier.shape}{Integer value indicating the shape of the outlier points}
 }
 \value{
 ggplot object
