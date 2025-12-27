@@ -3,8 +3,8 @@
 #' Shows the distribution of scores across all candidate labels for each predicted label.
 #' 
 #' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)
-#' @param outlier.shape Integer value indicating the shape of the outlier points
-#' @param alpha_val Numeric value indicating the alpha value for the points in the plot
+#' @param outlier_shape Integer value indicating the shape of the outlier points
+#' @param alpha Numeric value indicating the alpha value for the points in the plot
 #' @param jitter Logical value indicating whether to add geom_jitter to the plot 
 #'
 #' @return ggplot object
