@@ -35,7 +35,8 @@ plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
   # Pivot long
   long <- scores %>%
     select(labels, all_of(score_cols)) %>%
-    pivot_longer(cols = score_cols, names_to = "all_labels", values_to = "score")
+    pivot_longer(cols = all_of(score_cols), names_to = "all_labels",
+                 values_to = "score")
   
   # Plot
   p = long %>%
