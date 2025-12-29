@@ -13,7 +13,14 @@
 #' @import ggplot2
 #' @import tidyr
 #' @import dplyr
-#' 
+#'
+#' @examples
+#' set.seed(15)
+#' m = matrix(rnorm(60), nrow = 20)
+#' colnames(m) = c("TCell","BCell","Macro")
+#' rownames(m) = paste0("c", rep(1:nrow(m)))
+#' pred = add_labels_based_on_max(m)
+#' plot_signal_vs_noise(pred)
 plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
                                  jitter = FALSE) {
   
