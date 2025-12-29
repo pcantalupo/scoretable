@@ -4,19 +4,14 @@
 \alias{plot_scores_by_pred}
 \title{Boxplot of top scores by predicted label}
 \usage{
-plot_scores_by_pred(
-  scores,
-  outlier_shape = 19,
-  alpha_val = 0.7,
-  jitter = FALSE
-)
+plot_scores_by_pred(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
 }
 \arguments{
 \item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
 
 \item{outlier_shape}{Integer value indicating the shape of the outlier points}
 
-\item{alpha_val}{Numeric value indicating the alpha value for the points in the plot}
+\item{alpha}{Numeric value indicating the alpha value for the points in the plot}
 
 \item{jitter}{Logical value indicating whether to add geom_jitter to the plot}
 }
