@@ -4,16 +4,25 @@
 \alias{plot_signal_vs_noise}
 \title{Signal vs Noise Boxplot}
 \usage{
-plot_signal_vs_noise(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
+plot_signal_vs_noise(
+  scores,
+  outlier_shape = 19,
+  alpha = 0.7,
+  jitter = FALSE,
+  ncol = 3
+)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
+\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{outlier_shape}{Integer value indicating the shape of the outlier points}
 
 \item{alpha}{Numeric value indicating the alpha value for the points in the plot}
 
 \item{jitter}{Logical value indicating whether to add geom_jitter to the plot}
+
+\item{ncol}{Integer specifying the number of columns in the facet layout.
+Default is 3.}
 }
 \value{
 ggplot object

@@ -7,7 +7,7 @@
 plot_scores_by_pred(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
+\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{outlier_shape}{Integer value indicating the shape of the outlier points}
 
@@ -19,7 +19,7 @@ plot_scores_by_pred(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
 ggplot object
 }
 \description{
-Shows the distribution of scores for each predicted label. If you have 3 labels there will be three boxplox drawn in the same plot. Each point is the score of the observations of a label
+Shows the distribution of scores for each predicted label. If you have 3 labels there will be three boxplots drawn in the same plot. Each point is the score of the observations of a label
 }
 \examples{
 set.seed(15)

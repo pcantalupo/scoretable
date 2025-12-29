@@ -2,10 +2,12 @@
 #'
 #' Shows the distribution of scores across all candidate labels for each predicted label.
 #' 
-#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)
+#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)
 #' @param outlier_shape Integer value indicating the shape of the outlier points
 #' @param alpha Numeric value indicating the alpha value for the points in the plot
-#' @param jitter Logical value indicating whether to add geom_jitter to the plot 
+#' @param jitter Logical value indicating whether to add geom_jitter to the plot
+#' @param ncol Integer specifying the number of columns in the facet layout.
+#'   Default is 3. 
 #'
 #' @return ggplot object
 #'
@@ -22,7 +24,7 @@
 #' pred = add_labels_based_on_max(m)
 #' plot_signal_vs_noise(pred)
 plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
-                                 jitter = FALSE) {
+                                 jitter = FALSE, ncol = 3) {
   
   stopifnot(is.data.frame(scores))
   required_cols <- c("clusters", "labels", "score")
@@ -42,7 +44,7 @@ plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
     ggplot(aes(x = all_labels, y = score)) +
     geom_boxplot(outlier.shape = outlier_shape, alpha = alpha) +
     coord_flip() +
-    facet_wrap(~ labels, scales = "free_y") +
+    facet_wrap(~ labels, scales = "free_y", ncol = ncol) +
     labs(
       title = "Scores for all labels per predicted label",
       x = "All Labels",

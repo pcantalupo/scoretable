@@ -6,12 +6,14 @@
 #' candidate labels. This helps visualize the separation between the 
 #' "signal" (predicted label's scores) and "noise" (other labels' scores).
 #' 
-#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)
+#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)
 #' @param alpha Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 #'   Default is 0.7.
 #' @param scale Numeric value controlling ridge height and overlap. A value of 1 
 #'   means ridges just touch (maximum point touches baseline above). Values < 1 
 #'   create gaps, values > 1 create overlap. Default is 0.9.
+#' @param ncol Integer specifying the number of columns in the facet layout.
+#'   Default is 3.
 #'
 #' @return ggplot object
 #'

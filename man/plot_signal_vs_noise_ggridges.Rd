@@ -7,7 +7,7 @@
 plot_signal_vs_noise_ggridges(scores, alpha = 0.7, scale = 0.9, ncol = 3)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)}
+\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{alpha}{Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 Default is 0.7.}
@@ -15,6 +15,9 @@ Default is 0.7.}
 \item{scale}{Numeric value controlling ridge height and overlap. A value of 1
 means ridges just touch (maximum point touches baseline above). Values < 1
 create gaps, values > 1 create overlap. Default is 0.9.}
+
+\item{ncol}{Integer specifying the number of columns in the facet layout.
+Default is 3.}
 }
 \value{
 ggplot object
