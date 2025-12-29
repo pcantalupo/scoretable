@@ -4,7 +4,7 @@
 #'
 #' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each canditate label)
 #' @param outlier_shape Integer value indicating the shape of the outlier points
-#' @param alpha_val Numeric value indicating the alpha value for the points in the plot
+#' @param alpha Numeric value indicating the alpha value for the points in the plot
 #' @param jitter Logical value indicating whether to add geom_jitter to the plot
 #'
 #' @return ggplot object
@@ -20,7 +20,7 @@
 #' pred = add_labels_based_on_max(m)
 #' plot_scores_by_pred(pred, jitter = TRUE)
 #'
-plot_scores_by_pred <- function(scores, outlier_shape = 19, alpha_val = 0.7,
+plot_scores_by_pred <- function(scores, outlier_shape = 19, alpha = 0.7,
                                 jitter = FALSE) {
 
   stopifnot(is.data.frame(scores))
@@ -28,7 +28,7 @@ plot_scores_by_pred <- function(scores, outlier_shape = 19, alpha_val = 0.7,
   stopifnot(all(required_cols %in% colnames(scores)))
 
   p = ggplot(scores, aes(x = labels, y = score)) +
-    geom_boxplot(outlier.shape = outlier_shape, alpha = alpha_val) +
+    geom_boxplot(outlier.shape = outlier_shape, alpha = alpha) +
     coord_flip() +
     labs(
       x = "Predicted label", y = "Score",
