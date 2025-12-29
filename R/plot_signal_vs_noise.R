@@ -23,6 +23,7 @@
 #' rownames(m) = paste0("c", rep(1:nrow(m)))
 #' pred = add_labels_based_on_max(m)
 #' plot_signal_vs_noise(pred)
+#' plot_signal_vs_noise(pred, jitter = TRUE, ncol = 2)
 plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
                                  jitter = FALSE, ncol = 3) {
   

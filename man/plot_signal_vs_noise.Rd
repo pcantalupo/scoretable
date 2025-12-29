@@ -37,4 +37,5 @@ colnames(m) = c("TCell","BCell","Macro")
 rownames(m) = paste0("c", rep(1:nrow(m)))
 pred = add_labels_based_on_max(m)
 plot_signal_vs_noise(pred)
+plot_signal_vs_noise(pred, jitter = TRUE, ncol = 2)
 }
