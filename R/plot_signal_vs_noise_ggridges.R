@@ -6,7 +6,7 @@
 #' candidate labels. This helps visualize the separation between the 
 #' "signal" (predicted label's scores) and "noise" (other labels' scores).
 #' 
-#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)
+#' @param scores A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)
 #' @param alpha Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 #'   Default is 0.7.
 #' @param scale Numeric value controlling ridge height and overlap. A value of 1 
@@ -35,7 +35,7 @@ plot_signal_vs_noise_ggridges <- function(scores, alpha = 0.7,
                                           scale = 0.9, ncol = 3) {
   
   stopifnot(is.data.frame(scores))
-  required_cols <- c("clusters", "labels", "score")
+  required_cols <- c("obs_id", "labels", "score")
   stopifnot(all(required_cols %in% colnames(scores)))
   
   # Identify score columns (all columns not in metadata)

@@ -7,7 +7,7 @@
 plot_scores_by_pred(scores, outlier_shape = 19, alpha = 0.7, jitter = FALSE)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
+\item{scores}{A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{outlier_shape}{Integer value indicating the shape of the outlier points}
 

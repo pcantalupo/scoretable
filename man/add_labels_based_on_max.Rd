@@ -14,8 +14,8 @@ add_labels_based_on_max(scores, unknown = FALSE, cutoff = 0.25)
 \item{cutoff}{A numeric value between 0 and 1 specifying the cutoff score for assigning 'Unknown' labels (default is 0.25)}
 }
 \value{
-A data frame with 3 preprended columns 'clusters', 'labels', and 'score', followed by the original scores.
-'clusters' values are taken from the rownames of the input scores table.
+A data frame with 3 preprended columns 'obs_id', 'labels', and 'score', followed by the original scores.
+'obs_id' values are taken from the rownames of the input scores table.
 'labels' contains the lable with the maximum score for each row.
 'score' contains the maximum score for each row.
 }

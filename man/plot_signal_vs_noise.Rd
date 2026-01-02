@@ -13,7 +13,7 @@ plot_signal_vs_noise(
 )
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
+\item{scores}{A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{outlier_shape}{Integer value indicating the shape of the outlier points}
 

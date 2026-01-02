@@ -43,13 +43,13 @@ test_that("add_labels_based_on_max - basic functionality", {
   expect_equal(ncol(pred), 8)
   
   expect_true(class(pred) == "data.frame")
-  expect_equal(colnames(pred)[1:3], c("clusters", "labels", "score"))
+  expect_equal(colnames(pred)[1:3], c("obs_id", "labels", "score"))
   
   # all labels must be found in the column names of pred
   expect_true(all(pred$labels %in% colnames(esmax_scores_small)))
   
-  # clusters column matches rownames
-  expect_equal(pred$clusters, rownames(esmax_scores_small))
+  # obs_id column matches rownames
+  expect_equal(pred$obs_id, rownames(esmax_scores_small))
 })
 
 

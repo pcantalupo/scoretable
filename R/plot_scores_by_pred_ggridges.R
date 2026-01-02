@@ -4,7 +4,7 @@
 #' Creates density ridges for each unique predicted label, where each ridge 
 #' represents the distribution of top scores for observations with that label.
 #'
-#' @param scores A data.frame that contains columns "clusters", "labels", and 
+#' @param scores A data.frame that contains columns "obs_id", "labels", and 
 #'   "score" followed by one or more score columns (one for each candidate label)
 #' @param alpha Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 #'   Default is 0.7.
@@ -30,7 +30,7 @@ plot_scores_by_pred_ggridges <- function(scores, alpha = 0.7,
                                          scale = 0.9) {
   
   stopifnot(is.data.frame(scores))
-  required_cols <- c("clusters", "labels", "score")
+  required_cols <- c("obs_id", "labels", "score")
   stopifnot(all(required_cols %in% colnames(scores)))
   
   p = ggplot(scores, aes(x = score, y = labels)) +

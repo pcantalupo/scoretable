@@ -8,8 +8,8 @@
 #' 
 #' @details For each row in the scores table, the function identifies the column with the maximum score and assigns the corresponding column name as the label for that row. If the 'unknown' parameter is set to TRUE, and the maximum score for a row is below the specified cutoff the label for that row is set to 'Unknown'.
 #'
-#' @return A data frame with 3 preprended columns 'clusters', 'labels', and 'score', followed by the original scores.
-#'    'clusters' values are taken from the rownames of the input scores table.
+#' @return A data frame with 3 preprended columns 'obs_id', 'labels', and 'score', followed by the original scores.
+#'    'obs_id' values are taken from the rownames of the input scores table.
 #'    'labels' contains the lable with the maximum score for each row.
 #'    'score' contains the maximum score for each row.
 #' @export
@@ -58,7 +58,7 @@ add_labels_based_on_max = function(scores, unknown = FALSE, cutoff = 0.25) {
   #[3,] 3       3
   score = scores[cbind(1:nrow(scores), max_idx)]
   
-  scores_with_labels = data.frame(clusters = rownames(scores), labels = labels,
+  scores_with_labels = data.frame(obs_id = rownames(scores), labels = labels,
                                   score = score, scores, check.names = FALSE)
   
   if (unknown) {

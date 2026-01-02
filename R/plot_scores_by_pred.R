@@ -2,7 +2,7 @@
 #'
 #' Shows the distribution of scores for each predicted label. If you have 3 labels there will be three boxplots drawn in the same plot. Each point is the score of the observations of a label
 #'
-#' @param scores A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)
+#' @param scores A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)
 #' @param outlier_shape Integer value indicating the shape of the outlier points
 #' @param alpha Numeric value indicating the alpha value for the points in the plot
 #' @param jitter Logical value indicating whether to add geom_jitter to the plot
@@ -24,7 +24,7 @@ plot_scores_by_pred <- function(scores, outlier_shape = 19, alpha = 0.7,
                                 jitter = FALSE) {
 
   stopifnot(is.data.frame(scores))
-  required_cols <- c("clusters", "labels", "score")
+  required_cols <- c("obs_id", "labels", "score")
   stopifnot(all(required_cols %in% colnames(scores)))
 
   p = ggplot(scores, aes(x = labels, y = score)) +

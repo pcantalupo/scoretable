@@ -7,7 +7,7 @@
 plot_signal_vs_noise_ggridges(scores, alpha = 0.7, scale = 0.9, ncol = 3)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "clusters", "labels", and "score" followed by one or more score columns (one for each candidate label)}
+\item{scores}{A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)}
 
 \item{alpha}{Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 Default is 0.7.}
