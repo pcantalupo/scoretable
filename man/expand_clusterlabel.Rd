@@ -2,31 +2,30 @@
 % Please edit documentation in R/expand_clusterlabel.R
 \name{expand_clusterlabel}
 \alias{expand_clusterlabel}
-\title{Expand Cluster Labels to Cell Level}
+\title{Expand Group Labels to Observation Level}
 \usage{
 expand_clusterlabel(scores, clusters)
 }
 \arguments{
-\item{scores}{data.frame of cluster scores containing at least two columns:
-'clusters' and 'labels' (rows are clusters). DOES IT HAVE TO BE A DF???}
+\item{scores}{data.frame containing at least two columns:
+'obs_id' and 'labels' (rows represent groups).}
 
-\item{clusters}{vector that specifies the cluster for each cell. Must be same length
-as number of rows in \code{scores}.}
+\item{clusters}{A vector that specifies the group membership for each observation. Must be same length as the number of rows in \code{scores}.}
 }
 \value{
 A vector of the same length as \code{clusters} containing the expanded labels.
 }
 \description{
-Purpose: You have a scores table on the cluster/group level. However, you have a
-table of metadata on the cell level with a column specifying the cluster. You
-want to add a column of labels to your cell level metadata. Therefore this function
-will expand the cluster/group labels to a vector that you can add directly to your
-cell level metadata table.
+Purpose: You have a scores table at the group level. However, you have a
+table of metadata at the observation level with a column specifying the group. You
+want to add a column of labels to your observation-level metadata. Therefore this function
+will expand the group-level labels to a vector that you can add directly to your
+observation-level metadata table.
 }
 \examples{
 # Create group-level annotations
 scores = data.frame(
-  clusters = 0:3,
+  obs_id = 0:3,
   labels = c("T cells", "B cells", "Monocytes", "NK cells")
 )
 # Observation-level group assignments

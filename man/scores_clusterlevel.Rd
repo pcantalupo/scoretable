@@ -25,7 +25,7 @@ Rows are sorted by cluster ID (numeric clusters sort numerically,
 character clusters sort alphabetically). Rownames are the cluster IDs.
 }
 \description{
-Aggregate a score table composed of individual observations to a group level. For scRNAseq data this would aggregrate scores on single cell level to cluster level
+Aggregate a score table composed of individual observations to a group level. For example, in scRNAseq data this would aggregate scores from single cells to clusters; in other contexts it could aggregate samples to treatment groups or patients to cohorts.
 }
 \details{
 This function collapses observation-level scores into group-level summaries by

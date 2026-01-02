@@ -2,7 +2,7 @@
 #' 
 #' Determine the label for each row based on maximum value of the scores in the row.
 #'
-#' @param scores A data frame or matrix of scores with row and column names (i.e. for scRNAseq, rows are cells or clusters and columns are celltypes)
+#' @param scores A data frame or matrix of scores with row and column names. Rows represent observations (e.g., cells, samples, or groups) and columns represent label categories (e.g., cell types, classes).
 #' @param unknown Logical value indicating whether to assign 'Unknown' labels based on a cutoff score
 #' @param cutoff A numeric value between 0 and 1 specifying the cutoff score for assigning 'Unknown' labels (default is 0.25)
 #' 
@@ -10,7 +10,7 @@
 #'
 #' @return A data frame with 3 preprended columns 'obs_id', 'labels', and 'score', followed by the original scores.
 #'    'obs_id' values are taken from the rownames of the input scores table.
-#'    'labels' contains the lable with the maximum score for each row.
+#'    'labels' contains the label with the maximum score for each row.
 #'    'score' contains the maximum score for each row.
 #' @export
 #'

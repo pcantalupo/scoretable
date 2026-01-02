@@ -1,6 +1,6 @@
 #' Aggregate Score Table to Group level
 #' 
-#' Aggregate a score table composed of individual observations to a group level. For scRNAseq data this would aggregrate scores on single cell level to cluster level
+#' Aggregate a score table composed of individual observations to a group level. For example, in scRNAseq data this would aggregate scores from single cells to clusters; in other contexts it could aggregate samples to treatment groups or patients to cohorts.
 #'
 #' @param scores A numeric matrix or data frame where rows are observations 
 #'   (e.g., cells) and columns are scores (e.g., cell type predictions). 

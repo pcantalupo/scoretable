@@ -1,6 +1,6 @@
 #' Boxplot of top scores by predicted label
 #'
-#' Shows the distribution of scores for each predicted label. If you have 3 labels there will be three boxplots drawn in the same plot. Each point is the score of the observations of a label
+#' Shows the distribution of scores for each predicted label. If you have 3 labels there will be three boxplots drawn in the same plot. Each point is the score of the observations of a label.
 #'
 #' @param scores A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)
 #' @param outlier_shape Integer value indicating the shape of the outlier points

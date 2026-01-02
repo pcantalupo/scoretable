@@ -14,7 +14,7 @@ test_that("expand_clusterlabel works", {
   
   # Add labels based on maximum score
   pred = add_labels_based_on_max(scores.cluster)
-  
+
   # Expand cluster labels to observation level
   obs_labels = expand_clusterlabel(pred, clusters)
   

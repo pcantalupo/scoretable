@@ -7,7 +7,7 @@
 add_labels_based_on_max(scores, unknown = FALSE, cutoff = 0.25)
 }
 \arguments{
-\item{scores}{A data frame or matrix of scores with row and column names (i.e. for scRNAseq, rows are cells or clusters and columns are celltypes)}
+\item{scores}{A data frame or matrix of scores with row and column names. Rows represent observations (e.g., cells, samples, or groups) and columns represent label categories (e.g., cell types, classes).}
 
 \item{unknown}{Logical value indicating whether to assign 'Unknown' labels based on a cutoff score}
 
@@ -16,7 +16,7 @@ add_labels_based_on_max(scores, unknown = FALSE, cutoff = 0.25)
 \value{
 A data frame with 3 preprended columns 'obs_id', 'labels', and 'score', followed by the original scores.
 'obs_id' values are taken from the rownames of the input scores table.
-'labels' contains the lable with the maximum score for each row.
+'labels' contains the label with the maximum score for each row.
 'score' contains the maximum score for each row.
 }
 \description{
