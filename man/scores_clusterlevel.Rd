@@ -15,6 +15,9 @@ Rownames nor column names are necessary}
 specifying group membership (e.g., c(3, 1, 0, 1, 2, 0, 3, ...)).
 Must NOT be a factor. Numeric clusters will sort numerically,
 character clusters will sort alphabetically.}
+
+\item{fun}{Aggregation function to use. Currently only "mean" is supported.
+Default is "mean".}
 }
 \value{
 A matrix with the mean scores. Columns are in the same order as input.
@@ -25,7 +28,21 @@ character clusters sort alphabetically). Rownames are the cluster IDs.
 Aggregate a score table composed of individual observations to a group level. For scRNAseq data this would aggregrate scores on single cell level to cluster level
 }
 \details{
-TBD  Can think of it as collapsing the rows to N rows where N is the number of groups (i.e. clusters)
+This function collapses observation-level scores into group-level summaries by
+computing the mean score for each group. The input matrix with M rows (observations)
+is reduced to N rows (groups), where N is the number of unique clusters.
+
+For single-cell RNA-seq applications, this is particularly useful for:
+\itemize{
+\item Summarizing cell type prediction scores from individual cells to cluster level
+\item Creating cluster-level heatmaps or visualizations
+\item Reducing noise by averaging scores across similar cells
+\item Comparing score patterns between cell populations
+}
+
+The function uses \code{rowsum()} for efficient aggregation, making it suitable
+for large datasets. Cluster IDs are sorted in the output (numerically for numeric
+clusters, alphabetically for character clusters) for consistent ordering.
 }
 \examples{
 # Example scores matrix
