@@ -9,7 +9,7 @@ test_that("add_labels_based_on_max - requires data.frame or matrix with row and 
   scores = m
   expect_error(add_labels_based_on_max(scores), "Row and column names are required")
   
-  colnames(scores) = c("TCell","BCell","Macro")  # Only add colnames
+  colnames(scores) = c("TypeA","TypeB","TypeC")  # Only add colnames
   rownames(scores) = NULL
   expect_error(add_labels_based_on_max(scores), "Row and column names are required")
 
@@ -19,7 +19,7 @@ test_that("add_labels_based_on_max - requires data.frame or matrix with row and 
   
   # add both row and col names
   rownames(scores) = paste0("c", rep(1:nrow(scores)))
-  colnames(scores) = c("TCell","BCell","Macro")
+  colnames(scores) = c("TypeA","TypeB","TypeC")
   expect_no_error(add_labels_based_on_max(scores))
   
   
@@ -29,7 +29,7 @@ test_that("add_labels_based_on_max - requires data.frame or matrix with row and 
   rownames(scores) = NULL   # Default 1, 2,... Setting to NULL never removes rownames from a data.frame
   expect_error(add_labels_based_on_max(scores), "Row and column names are required")
 
-  colnames(scores) = c("TCell","BCell","Macro")  # add colnames
+  colnames(scores) = c("TypeA","TypeB","TypeC")  # add colnames
   expect_no_error(add_labels_based_on_max(scores))
 })
 
@@ -72,7 +72,7 @@ test_that("add_labels_based_on_max - returns correct maximum scores", {
   # add row and col names to the test matrix
   scores = m
   rownames(scores) = paste0("c", rep(1:nrow(scores)))
-  colnames(scores) = c("TCell","BCell","Macro")
+  colnames(scores) = c("TypeA","TypeB","TypeC")
   
   pred = add_labels_based_on_max(scores)
 

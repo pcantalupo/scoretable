@@ -17,12 +17,12 @@
 #' computing the mean score for each group. The input matrix with M rows (observations) 
 #' is reduced to N rows (groups), where N is the number of unique groups.
 #' 
-#' For single-cell RNA-seq applications, this is particularly useful for:
+#' Common use cases:
 #' \itemize{
-#'   \item Summarizing cell type prediction scores from individual cells to cluster level
-#'   \item Creating cluster-level heatmaps or visualizations
-#'   \item Reducing noise by averaging scores across similar cells
-#'   \item Comparing score patterns between cell populations
+#'   \item Summarizing prediction scores from observations to group level
+#'   \item Creating group-level heatmaps or visualizations
+#'   \item Reducing noise by averaging scores across similar observations
+#'   \item Comparing score patterns between populations
 #' }
 #' 
 #' The function uses \code{rowsum()} for efficient aggregation, making it suitable 

@@ -24,7 +24,7 @@ Shows the distribution of scores for each predicted label. If you have 3 labels 
 \examples{
 set.seed(15)
 m = matrix(rnorm(60), nrow = 20)
-colnames(m) = c("TCell","BCell","Macro")
+colnames(m) = c("TypeA","TypeB","TypeC")
 rownames(m) = paste0("c", rep(1:nrow(m)))
 pred = add_labels_based_on_max(m)
 plot_scores_by_pred(pred, jitter = TRUE)

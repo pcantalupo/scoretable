@@ -5,7 +5,10 @@
 \alias{esmax_scores_small}
 \title{Sctype esmax scores}
 \format{
-A matrix with 1000 rows and 5 columns. Rownames are like this '6_GTTTGTAAGGTGTTAC-1'. The colnames are celltypes. The values are Sctype scores
+A matrix with 1000 rows and 5 columns representing prediction scores from
+single-cell RNA-seq analysis. Rownames are cell barcodes. Column names are
+category labels. Values are prediction scores. This example dataset
+demonstrates the data structure expected by scoretable functions.
 }
 \usage{
 esmax_scores_small

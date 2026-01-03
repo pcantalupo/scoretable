@@ -18,7 +18,7 @@
 #' # Create group-level annotations
 #' scores = data.frame(
 #'   obs_id = 0:3,
-#'   labels = c("T cells", "B cells", "Monocytes", "NK cells")
+#'   labels = c("Type A", "Type B", "Type C", "Type D")
 #' )
 #' 
 #' # Observation-level group assignments

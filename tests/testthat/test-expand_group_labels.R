@@ -10,7 +10,7 @@ test_that("expand_group_labels works", {
   
   # Aggregate observations to group level
   scores.group = scores_grouplevel(m, groups)
-  colnames(scores.group) = c("T cells", "B cells", "Monocytes")
+  colnames(scores.group) = c("Type A", "Type B", "Type C")
   
   # Add labels based on maximum score
   pred = add_labels_based_on_max(scores.group)
@@ -19,8 +19,8 @@ test_that("expand_group_labels works", {
   obs_labels = expand_group_labels(pred, groups)
   
   # Expected result
-  expected = c("T cells", "Monocytes", "T cells", "T cells", "B cells",
-               "T cells", "T cells", "T cells", "B cells", "B cells")
+  expected = c("Type A", "Type C", "Type A", "Type A", "Type B",
+               "Type A", "Type A", "Type A", "Type B", "Type B")
   
   expect_equal(obs_labels, expected)
 })

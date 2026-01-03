@@ -30,8 +30,8 @@ For each row in the scores table, the function identifies the column with the ma
 scores = matrix(c(0.1, 0.7, 0.2,
                   0.5, 0.5, 0.2,
                   0.2, 0.3, 0.4), nrow=3, byrow=TRUE)
-colnames(scores) = c("TCell", "BCell", "Macro")
-rownames(scores) = c("Cell1", "Cell2", "Cell3")
+colnames(scores) = c("TypeA", "TypeB", "TypeC")
+rownames(scores) = c("Obs1", "Obs2", "Obs3")
 # Add labels based on maximum score
 result = add_labels_based_on_max(scores, unknown = TRUE)
 print(result)
