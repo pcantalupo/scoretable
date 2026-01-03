@@ -1,6 +1,6 @@
 Package: scoretable
 Title: Score Annotation and Visualization
-Version: 1.0.0
+Version: 2.0.0
 Authors@R: 
     person("Paul", "Cantalupo", , "pcantalupo@gmail.com", role = c("aut", "cre"))
 Description: Provides functions for annotating row observations in a matrix based on
