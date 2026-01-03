@@ -1,22 +1,22 @@
-test_that("expand_clusterlabel works", {
+test_that("expand_group_labels works", {
   # Create a matrix of scores 'm' (no row nor colnames) - 10 rows, 3 columns
   set.seed(1)
   nrow = 10
   m = matrix(rnorm(nrow * 3), nrow = nrow)  # colnames and rownames are NULL
   
-  # Create clusters vector of same length as 'm' matrix
+  # Create groups vector of same length as 'm' matrix
   set.seed(1)
-  clusters = sample(0:3, nrow, replace = TRUE)
+  groups = sample(0:3, nrow, replace = TRUE)
   
-  # Aggregate observations to cluster level
-  scores.cluster = scores_clusterlevel(m, clusters)
-  colnames(scores.cluster) = c("T cells", "B cells", "Monocytes")
+  # Aggregate observations to group level
+  scores.group = scores_clusterlevel(m, groups)
+  colnames(scores.group) = c("T cells", "B cells", "Monocytes")
   
   # Add labels based on maximum score
-  pred = add_labels_based_on_max(scores.cluster)
+  pred = add_labels_based_on_max(scores.group)
 
-  # Expand cluster labels to observation level
-  obs_labels = expand_clusterlabel(pred, clusters)
+  # Expand group labels to observation level
+  obs_labels = expand_group_labels(pred, groups)
   
   # Expected result
   expected = c("T cells", "Monocytes", "T cells", "T cells", "B cells",
