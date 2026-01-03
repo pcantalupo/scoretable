@@ -9,7 +9,7 @@ test_that("expand_group_labels works", {
   groups = sample(0:3, nrow, replace = TRUE)
   
   # Aggregate observations to group level
-  scores.group = scores_clusterlevel(m, groups)
+  scores.group = scores_grouplevel(m, groups)
   colnames(scores.group) = c("T cells", "B cells", "Monocytes")
   
   # Add labels based on maximum score
