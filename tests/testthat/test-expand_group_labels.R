@@ -1,27 +1,24 @@
 test_that("expand_group_labels works", {
-  # Create a matrix of scores 'm' (no row nor colnames) - 10 rows, 3 columns
-  set.seed(1)
-  nrow = 10
-  m = matrix(rnorm(nrow * 3), nrow = nrow)  # colnames and rownames are NULL
   
-  # Create groups vector of same length as 'm' matrix
-  set.seed(1)
-  groups = sample(0:3, nrow, replace = TRUE)
+  # Get first 10 rows of example data
+  scores = esmax_scores_small[1:10,]
+  # Extract the group identifiers from rownames
+  groups = sapply(strsplit(rownames(scores), split = "_"), '[', 1)
   
   # Aggregate observations to group level
-  scores.group = scores_grouplevel(m, groups)
-  colnames(scores.group) = c("Type A", "Type B", "Type C")
-  
+  scores.group = scores_grouplevel(scores, groups)
+
   # Add labels based on maximum score
   pred = add_labels_based_on_max(scores.group)
 
   # Expand group labels to observation level
   obs_labels = expand_group_labels(pred, groups)
   
-  # Expected result
-  expected = c("Type A", "Type C", "Type A", "Type A", "Type B",
-               "Type A", "Type A", "Type A", "Type B", "Type B")
-  
+  expected = c("Retinal Progenitor Cells", "Neurogenic Cells",
+               "Horizontal+Amacrine Cells", "Neurogenic Cells",
+               "Neurogenic Cells", "Retinal Progenitor Cells",
+               "Neurogenic Cells", "Retinal Progenitor Cells",
+               "Retinal Progenitor Cells", "Neurogenic Cells")
   expect_equal(obs_labels, expected)
 })
 
