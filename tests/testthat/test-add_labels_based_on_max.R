@@ -68,12 +68,10 @@ test_that("add_labels_based_on_max - unknown and cutoff params work", {
 
 
 test_that("add_labels_based_on_max - returns correct maximum scores", {
+  # Take the first 20 rows of esmax_scores_small for testing
+  scores = esmax_scores_small[1:20,]
+  head(scores)
 
-  # add row and col names to the test matrix
-  scores = m
-  rownames(scores) = paste0("c", rep(1:nrow(scores)))
-  colnames(scores) = c("TypeA","TypeB","TypeC")
-  
   pred = add_labels_based_on_max(scores)
 
   # check that the pred max scores matches the expected max scores   
