@@ -4,27 +4,27 @@
 \alias{expand_group_labels}
 \title{Expand Group Labels to Observation Level}
 \usage{
-expand_group_labels(scores, groups)
+expand_group_labels(annotated_scores, groups)
 }
 \arguments{
-\item{scores}{data.frame containing at least two columns:
-'obs_id' and 'labels' (rows represent groups).}
+\item{annotated_scores}{data.frame containing at least two columns
+'obs_id' and 'labels' (rows represent groups) followed optionally by score columns}
 
-\item{groups}{A vector that specifies the group membership for each observation. Must be same length as the number of rows in \code{scores}.}
+\item{groups}{A vector that specifies the group membership for each observation. Must be same length as the number of rows in \code{annotated_scores}.}
 }
 \value{
 A vector of the same length as \code{groups} containing the expanded labels.
 }
 \description{
-Purpose: You have a scores table at the group level. However, you have a
+Purpose: You have an annotated scores table at the group level. However, you have a
 table of metadata at the observation level with a column specifying the group. You
 want to add a column of labels to your observation-level metadata. Therefore this
-functionn will expand the group-level labels to a vector that you can add directly
+function will expand the group-level labels to a vector that you can add directly
 to your observation-level metadata table.
 }
 \examples{
 # Create group-level annotations
-scores = data.frame(
+annotated_scores = data.frame(
   obs_id = 0:3,
   labels = c("Type A", "Type B", "Type C", "Type D")
 )
@@ -33,6 +33,6 @@ scores = data.frame(
 groups = c(0, 0, 1, 2, 1, 3, 0, 2, 1, 3)
 
 # Map labels to observations
-obs_labels = expand_group_labels(scores, groups)
+obs_labels = expand_group_labels(annotated_scores, groups)
 print(obs_labels)
 }
