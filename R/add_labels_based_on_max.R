@@ -48,14 +48,7 @@ add_labels_based_on_max = function(scores, unknown = FALSE, cutoff = 0.25) {
   labels = colnames(scores)[max_idx]
   
   # Extract the score for each observation
-  # AI says:
-  # 1. When you pass a two-column matrix to the [ operator for a matrix, R treats each row of that matrix as a pair of (row, column) coordinates to extract. 
-  # 2. cbind method expresses the intent: "here are my (row, column) pairs."
-  #> cbind(1:nrow(scores), max_idx)
-  #       max_idx
-  #[1,] 1       2
-  #[2,] 2       1
-  #[3,] 3       3
+  # Use matrix indexing with (row, column) pairs
   score = scores[cbind(1:nrow(scores), max_idx)]
   
   scores_with_labels = data.frame(obs_id = rownames(scores), labels = labels,

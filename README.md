@@ -11,6 +11,6 @@ scoretable helps you:
 - Explore signal-to-noise ratios in predictions
 
 While originally developed for single-cell RNA-seq cell type annotation, 
-scoretable works with any domain where you have observations scored across 
-multiple categories: document classification, patient stratification, 
-image recognition, survey responses, and more.
+scoretable works with any domain where each row represents an observation 
+(a customer, loan applicant, survey respondent, etc.) and each column contains 
+prediction scores for different categories or outcomes.
