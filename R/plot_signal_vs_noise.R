@@ -2,14 +2,13 @@
 #'
 #' Shows the distribution of scores across all candidate labels for each predicted label.
 #' 
-#' @param scores A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)
-#' @param outlier_shape Integer value indicating the shape of the outlier points
-#' @param alpha Numeric value indicating the alpha value for the points in the plot
-#' @param jitter Logical value indicating whether to add geom_jitter to the plot
+#' @param annotated_scores A data.frame that contains columns "obs_id", "labels", and "score" 
+#'   followed by one or more score columns (one for each candidate label). This is 
+#'   typically the output from \code{add_labels_based_on_max()}.
 #' @param ncol Integer specifying the number of columns in the facet layout.
 #'   Default is 3. 
 #'
-#' @return ggplot object
+#' @return ggplot object that can be further customized with ggplot2 functions
 #'
 #' @export
 #' @import ggplot2
@@ -22,20 +21,35 @@
 #' colnames(m) = c("TypeA","TypeB","TypeC")
 #' rownames(m) = paste0("c", rep(1:nrow(m)))
 #' pred = add_labels_based_on_max(m)
+#' 
+#' # Basic plot with 3 columns
 #' plot_signal_vs_noise(pred)
-#' plot_signal_vs_noise(pred, jitter = TRUE, ncol = 2)
-plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
-                                 jitter = FALSE, ncol = 3) {
+#' 
+#' # Change facet layout
+#' plot_signal_vs_noise(pred, ncol = 2)
+#' 
+#' # Customize with ggplot2 functions
+#' library(ggplot2)
+#' p = plot_signal_vs_noise(pred)
+#' 
+#' # Add jitter to see individual points
+#' p + geom_jitter(width = 0.15, alpha = 0.5)
+#' 
+#' # Customize theme
+#' p + theme_bw() +
+#'   theme(strip.text = element_text(face = "bold"))
+#'
+plot_signal_vs_noise <- function(annotated_scores, ncol = 3) {
   
-  stopifnot(is.data.frame(scores))
+  stopifnot(is.data.frame(annotated_scores))
   required_cols <- c("obs_id", "labels", "score")
-  stopifnot(all(required_cols %in% colnames(scores)))
+  stopifnot(all(required_cols %in% colnames(annotated_scores)))
   
   # Identify score columns (all columns not in metadata)
-  score_cols <- setdiff(colnames(scores), required_cols)
+  score_cols <- setdiff(colnames(annotated_scores), required_cols)
   
   # Pivot long
-  long <- scores %>%
+  long <- annotated_scores %>%
     select(labels, all_of(score_cols)) %>%
     pivot_longer(cols = all_of(score_cols), names_to = "all_labels",
                  values_to = "score")
@@ -43,7 +57,7 @@ plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
   # Plot
   p = long %>%
     ggplot(aes(x = all_labels, y = score)) +
-    geom_boxplot(outlier.shape = outlier_shape, alpha = alpha) +
+    geom_boxplot(outlier.shape = NA) +
     coord_flip() +
     facet_wrap(~ labels, scales = "free_y", ncol = ncol) +
     labs(
@@ -51,11 +65,6 @@ plot_signal_vs_noise <- function(scores, outlier_shape = 19, alpha = 0.7,
       x = "All Labels",
       y = "Score"
     )
-  
-  if (jitter == TRUE) {
-    p = p +
-      geom_jitter(aes(color = labels), width = 0.15, size = 0.6, alpha = 0.4)
-  }
   
   return(p)
 }

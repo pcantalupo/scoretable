@@ -6,7 +6,9 @@
 #' candidate labels. This helps visualize the separation between the 
 #' "signal" (predicted label's scores) and "noise" (other labels' scores).
 #' 
-#' @param scores A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)
+#' @param annotated_scores A data.frame that contains columns "obs_id", "labels", and "score" 
+#'   followed by one or more score columns (one for each candidate label). This is 
+#'   typically the output from \code{add_labels_based_on_max()}.
 #' @param alpha Numeric value for ridge transparency (0 = transparent, 1 = opaque).
 #'   Default is 0.7.
 #' @param scale Numeric value controlling ridge height and overlap. A value of 1 
@@ -31,18 +33,18 @@
 #' pred = add_labels_based_on_max(m)
 #' plot_signal_vs_noise_ggridges(pred)
 #' plot_signal_vs_noise_ggridges(pred, scale = 2, ncol = 2)  # More overlap
-plot_signal_vs_noise_ggridges <- function(scores, alpha = 0.7,
+plot_signal_vs_noise_ggridges <- function(annotated_scores, alpha = 0.7,
                                           scale = 0.9, ncol = 3) {
   
-  stopifnot(is.data.frame(scores))
+  stopifnot(is.data.frame(annotated_scores))
   required_cols <- c("obs_id", "labels", "score")
-  stopifnot(all(required_cols %in% colnames(scores)))
+  stopifnot(all(required_cols %in% colnames(annotated_scores)))
   
   # Identify score columns (all columns not in metadata)
-  score_cols <- setdiff(colnames(scores), required_cols)
+  score_cols <- setdiff(colnames(annotated_scores), required_cols)
   
   # Pivot long
-  long <- scores %>%
+  long <- annotated_scores %>%
     select(labels, all_of(score_cols)) %>%
     pivot_longer(cols = all_of(score_cols), names_to = "all_labels",
                  values_to = "score")

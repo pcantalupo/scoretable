@@ -17,11 +17,14 @@ test_that("plot_scores_by_pred works", {
   expect_true(all(p$data$score >= min_val & p$data$score <= max_val))
 })
 
-test_that("plot_scores_by_pred jitter works", {
+test_that("plot_scores_by_pred can be customized", {
   pred = add_labels_based_on_max(esmax_scores_small)
-
-  p = plot_scores_by_pred(pred, jitter = TRUE)
-  expect_true("geom_jitter" %in% names(p$layers))
+  p = plot_scores_by_pred(pred)
+  
+  # Test that ggplot2 layers can be added
+  p2 = p + ggplot2::geom_jitter(width = 0.1)
+  expect_s3_class(p2, "ggplot")
+  expect_true(length(p2$layers) > length(p$layers))
 })
 
 

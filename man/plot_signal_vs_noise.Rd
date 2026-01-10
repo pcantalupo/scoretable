@@ -4,28 +4,18 @@
 \alias{plot_signal_vs_noise}
 \title{Signal vs Noise Boxplot}
 \usage{
-plot_signal_vs_noise(
-  scores,
-  outlier_shape = 19,
-  alpha = 0.7,
-  jitter = FALSE,
-  ncol = 3
-)
+plot_signal_vs_noise(annotated_scores, ncol = 3)
 }
 \arguments{
-\item{scores}{A data.frame that contains columns "obs_id", "labels", and "score" followed by one or more score columns (one for each candidate label)}
-
-\item{outlier_shape}{Integer value indicating the shape of the outlier points}
-
-\item{alpha}{Numeric value indicating the alpha value for the points in the plot}
-
-\item{jitter}{Logical value indicating whether to add geom_jitter to the plot}
+\item{annotated_scores}{A data.frame that contains columns "obs_id", "labels", and "score"
+followed by one or more score columns (one for each candidate label). This is
+typically the output from \code{add_labels_based_on_max()}.}
 
 \item{ncol}{Integer specifying the number of columns in the facet layout.
 Default is 3.}
 }
 \value{
-ggplot object
+ggplot object that can be further customized with ggplot2 functions
 }
 \description{
 Shows the distribution of scores across all candidate labels for each predicted label.
@@ -36,6 +26,22 @@ m = matrix(rnorm(60), nrow = 20)
 colnames(m) = c("TypeA","TypeB","TypeC")
 rownames(m) = paste0("c", rep(1:nrow(m)))
 pred = add_labels_based_on_max(m)
+
+# Basic plot with 3 columns
 plot_signal_vs_noise(pred)
-plot_signal_vs_noise(pred, jitter = TRUE, ncol = 2)
+
+# Change facet layout
+plot_signal_vs_noise(pred, ncol = 2)
+
+# Customize with ggplot2 functions
+library(ggplot2)
+p = plot_signal_vs_noise(pred)
+
+# Add jitter to see individual points
+p + geom_jitter(width = 0.15, alpha = 0.5)
+
+# Customize theme
+p + theme_bw() +
+  theme(strip.text = element_text(face = "bold"))
+
 }
