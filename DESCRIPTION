@@ -7,8 +7,9 @@ Description: Provides functions for annotating row observations in a matrix base
  their highest scoring column and for exploring score distributions across
  predicted labels. Originally designed for biological applications including
  cell type annotation, the package is fully general and applicable to any
- domain with observation-by-category score matrices (e.g., document
- classification, patient stratification, survey analysis).
+ domain where each row represents an observation (a customer, loan applicant, 
+ survey respondent, etc.) and each column contains prediction scores for 
+ different categories or outcomes.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
