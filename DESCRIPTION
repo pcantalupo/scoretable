@@ -1,0 +1,27 @@
+Package: scoretable
+Title: Score Annotation and Visualization
+Version: 2.0.0
+Authors@R: 
+    person("Paul", "Cantalupo", , "pcantalupo@gmail.com", role = c("aut", "cre"))
+Description: Provides functions for annotating row observations in a matrix based on
+ their highest scoring column and for exploring score distributions across
+ predicted labels. Originally designed for biological applications including
+ cell type annotation, the package is fully general and applicable to any
+ domain where each row represents an observation (a customer, loan applicant, 
+ survey respondent, etc.) and each column contains prediction scores for 
+ different categories or outcomes.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    dplyr,
+    ggplot2,
+    ggridges,
+    tidyr
+Depends: 
+    R (>= 3.5)
+LazyData: true

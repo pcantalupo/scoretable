@@ -1,5 +1,21 @@
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # scoretable <img src="man/figures/logo.png" align="right" height="139"/>
 
@@ -11,96 +27,78 @@ assigning labels, aggregating scores, and creating visualizations.
 While originally developed for **single-cell RNA-seq cell type
 annotation**, scoretable works with any domain where you have:
 
-- **Rows** representing observations (cells, customers, patients,
-  samples, etc.)
+-   **Rows** representing observations (cells, customers, patients,
+    samples, etc.)
 
-- **Columns** representing prediction scores for different categories or
-  outcomes
+-   **Columns** representing prediction scores for different categories
+    or outcomes
 
 Features include
 
-- **Automatic Label Assignment** - Assign labels based on maximum scores
-  with optional confidence thresholds
+-   **Automatic Label Assignment** - Assign labels based on maximum
+    scores with optional confidence thresholds
 
-- **Flexible Aggregation** - Aggregate observation-level scores to
-  group-level summaries
+-   **Flexible Aggregation** - Aggregate observation-level scores to
+    group-level summaries
 
-- **Publication-Ready Plots** - Visualize score distributions and
-  signal-to-noise ratios
+-   **Publication-Ready Plots** - Visualize score distributions and
+    signal-to-noise ratios
 
-- **Domain Agnostic** - Works with any score matrix structure
+-   **Domain Agnostic** - Works with any score matrix structure
 
 # Installation
 
 Install the development version from GitHub:
 
-``` r
+```{r eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("pcantalupo/scoretable")
 ```
 
 # Quick Start
 
-``` r
+```{r}
 library(scoretable)
 
 # Show example data (single-cell RNA-seq scores)
 head(esmax_scores_small, 1)
-#>                      Retinal Progenitor Cells Neurogenic Cells
-#> 6_GTTTGTAAGGTGTTAC-1                 2.627959        0.5733813
-#>                      Retinal Ganglion Cells Cones Photoreceptor Cells
-#> 6_GTTTGTAAGGTGTTAC-1             -0.4645437                 0.2822922
-#>                      Horizontal+Amacrine Cells
-#> 6_GTTTGTAAGGTGTTAC-1                -0.3028548
 ```
 
 1.  Assign labels based on maximum scores
 
-``` r
+```{r}
 pred <- add_labels_based_on_max(esmax_scores_small)
 head(pred, 1)
-#>                                    obs_id                   labels    score
-#> 6_GTTTGTAAGGTGTTAC-1 6_GTTTGTAAGGTGTTAC-1 Retinal Progenitor Cells 2.627959
-#>                      Retinal Progenitor Cells Neurogenic Cells
-#> 6_GTTTGTAAGGTGTTAC-1                 2.627959        0.5733813
-#>                      Retinal Ganglion Cells Cones Photoreceptor Cells
-#> 6_GTTTGTAAGGTGTTAC-1             -0.4645437                 0.2822922
-#>                      Horizontal+Amacrine Cells
-#> 6_GTTTGTAAGGTGTTAC-1                -0.3028548
 ```
 
 2.  Visualize score distributions
 
-``` r
+```{r plotscores_example, fig.width=5, fig.height=3, out.width="50%"}
 plot_scores_by_pred(pred)
 ```
 
-<img src="man/figures/README-plotscores_example-1.png" width="50%" />
-
 3.  Examine signal vs noise
 
-``` r
+```{r plotsignal_example, fig.width=10, fig.height=3.5}
 plot_signal_vs_noise(pred)
 ```
-
-<img src="man/figures/README-plotsignal_example-1.png" width="100%" />
 
 # Data Requirements
 
 Your input score matrix should have:
 
-- **Numeric values** (prediction scores, probabilities, or similarity
-  metrics)
+-   **Numeric values** (prediction scores, probabilities, or similarity
+    metrics)
 
-- **Row names** (observation identifiers)
+-   **Row names** (observation identifiers)
 
-- **Column names** (category labels)
+-   **Column names** (category labels)
 
-- **Matrix or data.frame** format
+-   **Matrix or data.frame** format
 
 Example structure:
 
-``` r
+```{r}
 #                    TypeA    TypeB    TypeC
 # observation_1      0.75     0.15     0.10
 # observation_2      0.20     0.65     0.15
@@ -118,55 +116,34 @@ The `esmax_scores_small` dataset contains prediction scores from 1,000
 randomly sampled cells from a retinal study. Each cell has been scored
 against 5 potential cell types:
 
-``` r
+```{r}
 library(scoretable)
 
 # Examine structure of the example dataset
 dim(esmax_scores_small)
-#> [1] 1000    5
 
 colnames(esmax_scores_small)
-#> [1] "Retinal Progenitor Cells"  "Neurogenic Cells"         
-#> [3] "Retinal Ganglion Cells"    "Cones Photoreceptor Cells"
-#> [5] "Horizontal+Amacrine Cells"
 
 head(esmax_scores_small, 3)
-#>                       Retinal Progenitor Cells Neurogenic Cells
-#> 6_GTTTGTAAGGTGTTAC-1                 2.6279590        0.5733813
-#> 3_TAACCGGTCAGGGCCT-1                -0.1472288       -0.5437685
-#> 5a_ACGCCTTTCGCCTGTT-1               -0.7973896       -0.4364421
-#>                       Retinal Ganglion Cells Cones Photoreceptor Cells
-#> 6_GTTTGTAAGGTGTTAC-1              -0.4645437                 0.2822922
-#> 3_TAACCGGTCAGGGCCT-1              -0.4052407                -0.5026923
-#> 5a_ACGCCTTTCGCCTGTT-1             -0.6821694                -0.3475924
-#>                       Horizontal+Amacrine Cells
-#> 6_GTTTGTAAGGTGTTAC-1                 -0.3028548
-#> 3_TAACCGGTCAGGGCCT-1                 -0.3227013
-#> 5a_ACGCCTTTCGCCTGTT-1                -0.2300236
 ```
 
 ## Step 1: Assign Cell Type Labels
 
 Assign each cell to its highest-scoring cell type:
 
-``` r
+```{r}
 # Basic label assignment
 pred <- add_labels_based_on_max(esmax_scores_small)
 
 # Count cells per type
 table(pred$labels)
-#> 
-#> Cones Photoreceptor Cells Horizontal+Amacrine Cells          Neurogenic Cells 
-#>                       110                       147                       166 
-#>    Retinal Ganglion Cells  Retinal Progenitor Cells 
-#>                       157                       420
 ```
 
 ## Step 2: Handle Low-Confidence Predictions
 
-Mark cells with low prediction scores as “Unknown”:
+Mark cells with low prediction scores as "Unknown":
 
-``` r
+```{r}
 # Assign "Unknown" to cells with max score < 0.25
 pred_filtered <- add_labels_based_on_max(
   esmax_scores_small, 
@@ -176,51 +153,43 @@ pred_filtered <- add_labels_based_on_max(
 
 # How many cells were filtered? 
 sum(pred_filtered$labels == "Unknown")
-#> [1] 332
 ```
 
 ## Step 3: Visualize Score Distributions
 
 Boxplot of Scores by Predicted Cell Type
 
-``` r
+```{r fig.width=5, fig.height=3, out.width="50%"}
 plot_scores_by_pred(pred)
 ```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="50%" />
 
 This plot shows the distribution of maximum scores for each predicted
 cell type, helping you assess prediction confidence.
 
 Ridge Plot Alternative
 
-``` r
+```{r fig.width=5, fig.height=3, out.width="50%"}
 library(ggridges)
 plot_scores_by_pred_ggridges(pred, alpha = 0.7, scale = 1.2)
-#> Picking joint bandwidth of 0.537
 ```
-
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="50%" />
 
 ## Step 4: Signal vs Noise Analysis
 
 Examine how well each cell type separates from others:
 
-``` r
+```{r fig.width=10, fig.height=3.5}
 # Faceted view showing all scores for each prediction
 plot_signal_vs_noise(pred)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
-
 This visualization is important for understanding:
 
-- **Signal**: Scores for the predicted cell type (should be high)
-- **Noise**: Scores for other cell types (should be low)
-- **Separation**: Good predictions show clear separation between signal
-  and noise
+-   **Signal**: Scores for the predicted cell type (should be high)
+-   **Noise**: Scores for other cell types (should be low)
+-   **Separation**: Good predictions show clear separation between
+    signal and noise
 
-``` r
+```{r eval=FALSE}
 # Ridge plot version for smoother distributions (NOT RUN)
 plot_signal_vs_noise_ggridges(pred, alpha = 0.6, scale = 0.9)
 ```
@@ -230,13 +199,10 @@ plot_signal_vs_noise_ggridges(pred, alpha = 0.6, scale = 0.9)
 If cells are organized into clusters, and you want to annotate your
 clusters, first aggregate scores to the cluster level:
 
-``` r
+```{r fig.width=5, fig.height=3, out.width="50%"}
 # Cluster IDs are in the esmax_clusters_small vector
 clusters = esmax_clusters_small
 table(clusters)
-#> clusters
-#>   0   1   2   3   4   5   6   7   8 
-#> 203 213 132 130 135 104  32  20  31
 
 # Aggregate scores by cluster and assign labels at cluster level
 cluster_scores <- scores_grouplevel(esmax_scores_small, clusters)
@@ -246,17 +212,14 @@ cluster_pred <- add_labels_based_on_max(cluster_scores)
 plot_scores_by_pred(cluster_pred)
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="50%" />
-
 ## Step 6: Map Cluster Labels Back to Cells
 
 Transfer cluster-level annotations back to individual cells:
 
-``` r
+```{r}
 # Expand cluster labels to cell level
 cell_labels <- expand_group_labels(cluster_pred, clusters)
 length(cell_labels)
-#> [1] 1000
 
 # Example of adding cell_labels to your metadata
 metadata <- data.frame(
@@ -270,20 +233,13 @@ metadata <- data.frame(
 
 # Show that all cells from each cluster have the same assigned cell type
 table(metadata$celltype, metadata$cluster)
-#>                            
-#>                               0   1   2   3   4   5   6   7   8
-#>   Cones Photoreceptor Cells   0   0   0   0   0   0  32   0   0
-#>   Horizontal+Amacrine Cells   0   0   0   0   0   0   0  20   0
-#>   Neurogenic Cells            0   0   0 130   0   0   0   0   0
-#>   Retinal Ganglion Cells      0   0   0   0   0 104   0   0  31
-#>   Retinal Progenitor Cells  203 213 132   0 135   0   0   0   0
 ```
 
 # Customizing Plots
 
 All plotting functions return `ggplot` objects that can be customized:
 
-``` r
+```{r fig.width=5, fig.height=3, out.width="50%"}
 library(ggplot2)
 
 # Customize labels and title
@@ -296,12 +252,10 @@ p + geom_boxplot(outlier.shape = 19) +
   geom_jitter(width = 0.1, alpha = 0.3, color = "steelblue")
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="50%" />
-
 # Functions
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | `add_labels_based_on_max()` | Assign labels based on maximum score per observation |
 | `scores_grouplevel()` | Aggregate observation-level scores to group-level |
 | `expand_group_labels()` | Map group-level labels back to observations |
@@ -312,8 +266,9 @@ p + geom_boxplot(outlier.shape = 19) +
 
 # Related Packages
 
-- [Seurat](https://satijalab.org/seurat/) - Single-cell RNA-seq analysis
-- [SingleR](https://bioconductor.org/packages/SingleR/) - Cell type
-  annotation reference
-- [scType](https://github.com/IanevskiAleksandr/sc-type) - Cell type
-  annotation tool
+-   [Seurat](https://satijalab.org/seurat/) - Single-cell RNA-seq
+    analysis
+-   [SingleR](https://bioconductor.org/packages/SingleR/) - Cell type
+    annotation reference
+-   [scType](https://github.com/IanevskiAleksandr/sc-type) - Cell type
+    annotation tool
